@@ -59,7 +59,7 @@ jobs:
         run: |
           VERSION=$(git describe --tags --always --dirty)
           go build -v -trimpath \
-            -ldflags="-s -w -X github.com/pyrohost/elytra/src/system.Version=${VERSION}" \
+            -ldflags="-s -w -X github.com/skystral/elytra/src/system.Version=${VERSION}" \
             -o dist/elytra_${{ matrix.goos }}_${{ matrix.goarch }} \
             ./src/cmd/elytra
 
@@ -100,7 +100,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/pyrohost/elytra
+          images: ghcr.io/skystral/elytra
           tags: |
             type=sha,format=short
             type=raw,value=dev,enable={{is_default_branch}}

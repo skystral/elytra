@@ -43,7 +43,7 @@ jobs:
             for GOARCH in amd64 arm64; do
               echo "Building ${GOOS}/${GOARCH}..."
               env GOOS=${GOOS} GOARCH=${GOARCH} go build -v -trimpath \
-                -ldflags="-s -w -X github.com/pyrohost/elytra/src/system.Version=${VERSION}" \
+                -ldflags="-s -w -X github.com/skystral/elytra/src/system.Version=${VERSION}" \
                 -o dist/elytra_${GOOS}_${GOARCH} \
                 ./src/cmd/elytra
             done
@@ -102,7 +102,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/pyrohost/elytra
+          images: ghcr.io/skystral/elytra
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -127,6 +127,6 @@ jobs:
       - name: Generate attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ghcr.io/pyrohost/elytra
+          subject-name: ghcr.io/skystral/elytra
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
